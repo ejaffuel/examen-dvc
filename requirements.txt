@@ -10,4 +10,4 @@ pathlib
 click
 logging
 scikit-learn
-joblib
+pickle
