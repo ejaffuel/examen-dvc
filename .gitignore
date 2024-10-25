@@ -1,3 +1,5 @@
 /venv
 /clean_data.csv
 /env_exam_dvc
+/src.egg-info
+src/data/__pycache__/check_structure.cpython-311.pyc
