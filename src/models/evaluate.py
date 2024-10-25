@@ -30,7 +30,8 @@ def main(repo_path):
         modele = pickle.load(f)
 
     predictions = pd.DataFrame(modele.predict(X_test), X_test.index)
-    
+    predictions.columns = ['silica_concentrate_prediction']
+
     score = modele.score(X_test, y_test)
     rmse = root_mean_squared_error(y_test, predictions)
     mae = mean_absolute_error(y_test, predictions)
