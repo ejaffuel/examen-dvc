@@ -9,8 +9,16 @@ X_train = pd.read_csv('data/processed/X_train_scaled.csv')
 y_train = pd.read_csv('data/processed/y_train.csv')
 y_train = np.ravel(y_train)
 
-from sklearn.linear_model import LinearRegression
-modele = LinearRegression()
+# from sklearn.linear_model import LinearRegression
+# modele = LinearRegression()
+
+from sklearn.ensemble import GradientBoostingRegressor
+modele = GradientBoostingRegressor (
+    n_estimators = 1000,
+    max_depth = 10000,
+    max_features = 15
+)
+
 modele.fit (X_train, y_train)
 
 #--Save the trained model to a file
