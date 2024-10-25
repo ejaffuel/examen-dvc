@@ -20,6 +20,9 @@ def process_data(input_filepath):
     # Import datasets
     df = import_dataset(input_filepath, sep=",")
 
+    # Ne pas considérer les dates (d'après l'énoncé)
+    df = df.drop(['date'], axis=1)
+
     # Split data into training and testing sets
     X_train, X_test, y_train, y_test = split_data(df)
 
