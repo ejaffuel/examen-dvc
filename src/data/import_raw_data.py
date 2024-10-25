@@ -27,11 +27,11 @@ def import_raw_data(raw_data_relative_path,
             else:
                 print(f'Error accessing the object {input_file}:', response.status_code)
                 
-def main(raw_data_relative_path="./data/raw", 
+def main(raw_data_relative_path="./data/raw_data", 
         filenames = ["raw.csv"],
-        bucket_folder_url= "https://datascientest-mlops.s3.eu-west-1.amazonaws.com/mlops_dvc_fr/raw.csv"          
+        bucket_folder_url= "https://datascientest-mlops.s3.eu-west-1.amazonaws.com/mlops_dvc_fr/"          
         ):
-    """ Upload data from AWS s3 in ./data/raw
+    """ Upload data from AWS s3 in ./data/raw_data
     """
     import_raw_data(raw_data_relative_path, filenames, bucket_folder_url)
     logger = logging.getLogger(__name__)
