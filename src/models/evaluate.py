@@ -9,7 +9,7 @@ import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from data.check_structure import check_existing_file, check_existing_folder
 
-X_test = pd.read_csv('data/processed/X_test.csv')
+X_test = pd.read_csv('data/processed/X_test_scaled.csv')
 y_test = pd.read_csv('data/processed/y_test.csv')
 y_test = np.ravel(y_test)
 
