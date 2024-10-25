@@ -1,0 +1,13 @@
+# local package
+-e .
+
+# external requirements
+dvc-s3
+requests
+pandas
+numpy 
+pathlib
+click
+logging
+scikit-learn
+joblib
