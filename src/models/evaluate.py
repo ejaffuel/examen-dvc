@@ -5,6 +5,8 @@ import json
 from pathlib import Path
 import sys
 import os
+from sklearn.metrics import root_mean_squared_error, mean_absolute_error
+
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from data.check_structure import check_existing_file, check_existing_folder
@@ -28,8 +30,16 @@ def main(repo_path):
         modele = pickle.load(f)
 
     predictions = pd.DataFrame(modele.predict(X_test), X_test.index)
+    
     score = modele.score(X_test, y_test)
-    metrics = {"score": score}
+    rmse = root_mean_squared_error(y_test, predictions)
+    mae = mean_absolute_error(y_test, predictions)
+    metrics = {
+            "score" : score,
+            "rmse" : rmse,
+            "mae" : mae
+            }
+    
     metric_path = repo_path / "metrics/scores.json"
     metric_path.write_text(json.dumps(metrics))
 
