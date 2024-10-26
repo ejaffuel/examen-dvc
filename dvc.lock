@@ -9,12 +9,16 @@ stages:
       size: 333757
     - path: src/data/data_split.py
       hash: md5
-      md5: 15020380d7409599f38f3f27be202399
-      size: 3061
+      md5: 97e3d099e95f13d15c5a6d1adffd8313
+      size: 3462
+    - path: src/data/import_raw_data.py
+      hash: md5
+      md5: 7d2004dcb028c8819e62e606389684bd
+      size: 1985
     - path: src/params.yaml
       hash: md5
-      md5: 49d0d8ff27927e4ebb845c14d75f061a
-      size: 614
+      md5: 984bc84d9235f558e4f18bb98a245d88
+      size: 726
     outs:
     - path: data/processed/X_test.csv
       hash: md5

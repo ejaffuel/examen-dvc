@@ -2,9 +2,13 @@ from dataclasses import dataclass
 from pathlib import Path
 
 @dataclass(frozen=True)
+class Data_import_raw_config:
+    input_url: str
+    output_filepath : Path
+
+@dataclass(frozen=True)
 class Data_split_config:
     test_size: float
-    input_filepath: Path
     
     output_folderpath:  Path
 

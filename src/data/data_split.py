@@ -8,20 +8,22 @@ import sys
 import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../..')))
 from src.config_manager import ConfigurationManager
+from src.data.import_raw_data import import_raw_data
 
 config_manager = ConfigurationManager()
+data_import_raw_config = config_manager.get_data_import_raw_config()
 
 data_split_config = config_manager.get_data_split_config()
 
-def main(input_filepath, output_folderpath):
+def main(input_url, input_filepath, output_folderpath):
     logger = logging.getLogger(__name__)
     logger.info('making final data set from raw data')
 
-    process_data(input_filepath, output_folderpath)
+    process_data(input_url, input_filepath, output_folderpath)
 
-def process_data(input_filepath, output_folderpath):
+def process_data(input_url, input_filepath, output_folderpath):
     # Import datasets
-    df = import_dataset(input_filepath, sep=",")
+    df = import_dataset(input_url, input_filepath, sep=",")
 
     # Ne pas considérer les dates (d'après l'énoncé)
     df = df.drop(['date'], axis=1)
@@ -35,7 +37,11 @@ def process_data(input_filepath, output_folderpath):
     # Save dataframes to their respective output file paths
     save_dataframes(X_train, X_test, y_train, y_test, output_folderpath)
 
-def import_dataset(file_path, **kwargs):
+def import_dataset(input_url, file_path, **kwargs):
+
+    output_folderpath = Path(file_path).parent
+    output_filename = Path(file_path).name
+    import_raw_data(input_url, output_folderpath, output_filename)
     return pd.read_csv(file_path, **kwargs)
 
 def split_data(df):
@@ -73,6 +79,7 @@ if __name__ == '__main__':
     # not used in this stub but often useful for finding various files
     project_dir = Path(__file__).resolve().parents[2]
 
-    input_filepath = data_split_config.input_filepath
+    input_url = data_import_raw_config.input_url
+    input_filepath = data_import_raw_config.output_filepath
     output_folderpath = data_split_config.output_folderpath
-    main(input_filepath, output_folderpath)
+    main(input_url, input_filepath, output_folderpath)

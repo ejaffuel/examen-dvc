@@ -1,6 +1,9 @@
+import_raw_config:
+  input_url: "https://datascientest-mlops.s3.eu-west-1.amazonaws.com/mlops_dvc_fr/raw.csv"
+  output_filepath: "data/raw_data/raw.csv"
+
 split_config:
   test_size: 0.3
-  input_filepath: "data/raw_data/raw.csv"
 
   output_folderpath: "data/processed/"
 
