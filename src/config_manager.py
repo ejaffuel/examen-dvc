@@ -37,14 +37,14 @@ class ConfigurationManager:
 
                   output_folderpath = config.output_folderpath,
 
-                  output_X_train_filename = config.output_X_train_filename,
-                  output_X_train_scaled_filename = config.output_X_train_scaled_filename,
+                  X_train_filename = config.X_train_filename,
+                  X_train_scaled_filename = config.X_train_scaled_filename,
 
-                  output_X_test_filename = config.output_X_test_filename,
-                  output_X_test_scaled_filename = config.output_X_test_scaled_filename,
+                  X_test_filename = config.X_test_filename,
+                  X_test_scaled_filename = config.X_test_scaled_filename,
 
-                  output_y_train_filename = config.output_y_train_filename,
-                  output_y_test_filename = config.output_y_test_filename
+                  y_train_filename = config.y_train_filename,
+                  y_test_filename = config.y_test_filename
           )
           return data_split_config
 

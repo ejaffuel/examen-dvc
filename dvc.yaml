@@ -1,13 +1,24 @@
 stages:
   split:
-    cmd: python ${split_config.prog_filepath}
     deps:
-    - https://datascientest-mlops.s3.eu-west-1.amazonaws.com/mlops_dvc_fr/raw.csv
-    - src/data/import_raw_data.py
     - ${split_config.prog_filepath}
     - params.yaml
+    - src/data/import_raw_data.py
+    - https://datascientest-mlops.s3.eu-west-1.amazonaws.com/mlops_dvc_fr/raw.csv
     outs:
-    - ${split_config.output_folderpath}/${split_config.output_X_train_filename}
-    - ${split_config.output_folderpath}/${split_config.output_X_test_filename}
-    - ${split_config.output_folderpath}/${split_config.output_y_train_filename}
-    - ${split_config.output_folderpath}/${split_config.output_y_test_filename}
+    - ${split_config.output_folderpath}/${split_config.X_train_filename}
+    - ${split_config.output_folderpath}/${split_config.X_test_filename}
+    - ${split_config.output_folderpath}/${split_config.y_train_filename}
+    - ${split_config.output_folderpath}/${split_config.y_test_filename}
+    cmd: python ${split_config.prog_filepath}
+
+  normalize:
+    deps:
+    - ${normalize_config.prog_filepath}
+    - params.yaml
+    - ${split_config.output_folderpath}/${split_config.X_train_filename}
+    - ${split_config.output_folderpath}/${split_config.X_test_filename}
+    outs:
+    - ${split_config.output_folderpath}/${split_config.X_train_scaled_filename}
+    - ${split_config.output_folderpath}/${split_config.X_test_scaled_filename}
+    cmd: python ${normalize_config.prog_filepath}

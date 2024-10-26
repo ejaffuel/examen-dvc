@@ -48,7 +48,10 @@ def split_data(df):
     # Split data into training and testing sets
     target = df['silica_concentrate']
     feats = df.drop(['silica_concentrate'], axis=1)
-    X_train, X_test, y_train, y_test = train_test_split(feats, target, test_size=0.3, random_state=42)
+    X_train, X_test, y_train, y_test = train_test_split(feats, 
+                                                        target, 
+                                                        test_size=data_split_config.test_size, 
+                                                        random_state=42)
     return X_train, X_test, y_train, y_test
 
 def create_folder_if_necessary(output_folderpath):
@@ -62,10 +65,10 @@ def save_dataframes(X_train, X_test, y_train, y_test, output_folderpath):
                                X_test, 
                                y_train, 
                                y_test], 
-                              [data_split_config.output_X_train_filename, 
-                               data_split_config.output_X_test_filename,
-                               data_split_config.output_y_train_filename,
-                               data_split_config.output_y_test_filename]):
+                              [data_split_config.X_train_filename, 
+                               data_split_config.X_test_filename,
+                               data_split_config.y_train_filename,
+                               data_split_config.y_test_filename]):
         output_filepath = os.path.join(data_split_config.output_folderpath, 
                                        filename 
                                       )
