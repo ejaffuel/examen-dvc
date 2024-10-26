@@ -31,3 +31,7 @@ class Data_grid_search_config:
 class Data_training_config:
     model_filepath : Path
 
+@dataclass(frozen=True)
+class Data_evaluate_config:
+    predictions_filepath : Path
+    metrics_filepath : Path

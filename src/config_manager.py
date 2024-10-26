@@ -7,7 +7,8 @@ from src.common_utils import read_yaml, create_directories
 from src.entity import (Data_import_raw_config,
                         Data_split_config, 
                         Data_grid_search_config, 
-                        Data_training_config)
+                        Data_training_config,
+                        Data_evaluate_config)
 
 class ConfigurationManager:
     def __init__(
@@ -67,5 +68,17 @@ class ConfigurationManager:
 
           data_training_config = Data_training_config(
                 model_filepath = config.model_filepath
+          )
+          return data_training_config
+
+    def get_data_evaluate_config(self) -> Data_evaluate_config:
+          config = self.config.evaluate_config
+
+          create_directories([Path(config.predictions_filepath).parent,
+                              Path(config.metrics_filepath).parent])
+
+          data_training_config = Data_evaluate_config(
+                predictions_filepath = config.predictions_filepath,
+                metrics_filepath = config.metrics_filepath
           )
           return data_training_config

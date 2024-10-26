@@ -1,5 +1,6 @@
 stages:
   split:
+    cmd: python ${split_config.prog_filepath}
     deps:
     - ${split_config.prog_filepath}
     - params.yaml
@@ -10,9 +11,9 @@ stages:
     - ${split_config.output_folderpath}/${split_config.X_test_filename}
     - ${split_config.output_folderpath}/${split_config.y_train_filename}
     - ${split_config.output_folderpath}/${split_config.y_test_filename}
-    cmd: python ${split_config.prog_filepath}
 
   normalize:
+    cmd: python ${normalize_config.prog_filepath}
     deps:
     - ${normalize_config.prog_filepath}
     - params.yaml
@@ -21,9 +22,9 @@ stages:
     outs:
     - ${split_config.output_folderpath}/${split_config.X_train_scaled_filename}
     - ${split_config.output_folderpath}/${split_config.X_test_scaled_filename}
-    cmd: python ${normalize_config.prog_filepath}
 
   gridSearch:
+    cmd: python ${grid_search_config.prog_filepath}
     deps:
     - ${grid_search_config.prog_filepath}
     - params.yaml
@@ -31,9 +32,9 @@ stages:
     - ${split_config.output_folderpath}/${split_config.y_train_filename}
     outs:
     - ${grid_search_config.best_params_filepath}
-    cmd: python ${grid_search_config.prog_filepath}
 
   training:
+    cmd: python ${training_config.prog_filepath}
     deps:
     - ${training_config.prog_filepath}
     - params.yaml
@@ -42,4 +43,17 @@ stages:
     - ${split_config.output_folderpath}/${split_config.y_train_filename}
     outs:
     - ${training_config.model_filepath}
-    cmd: python ${training_config.prog_filepath}
+
+  evaluate:
+    cmd: python ${evaluate_config.prog_filepath}
+    deps:
+    - ${evaluate_config.prog_filepath}
+    - params.yaml
+    - ${grid_search_config.best_params_filepath}
+    - ${training_config.model_filepath}
+    - ${split_config.output_folderpath}/${split_config.X_test_scaled_filename}
+    - ${split_config.output_folderpath}/${split_config.y_test_filename}
+    outs:
+    - ${evaluate_config.predictions_filepath}
+    metrics:
+    - ${evaluate_config.metrics_filepath}

@@ -6,26 +6,34 @@ from pathlib import Path
 import sys
 import os
 from sklearn.metrics import root_mean_squared_error, mean_absolute_error
+import sys
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../..')))
+from src.data.check_structure import check_existing_file, check_existing_folder
+from src.config_manager import ConfigurationManager
 
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-from data.check_structure import check_existing_file, check_existing_folder
+config_manager = ConfigurationManager()
 
-X_test = pd.read_csv('data/processed/X_test_scaled.csv')
-y_test = pd.read_csv('data/processed/y_test.csv')
+data_split_config = config_manager.get_data_split_config()
+data_training_config = config_manager.get_data_training_config()
+data_evaluate_config = config_manager.get_data_evaluate_config()
+
+X_test = pd.read_csv(data_split_config.output_folderpath 
+                      + data_split_config.X_test_scaled_filename)
+y_test = pd.read_csv(data_split_config.output_folderpath 
+                      + data_split_config.y_test_filename)
 y_test = np.ravel(y_test)
 
-def save_dataframe(dataframe, output_folderpath, output_filepath):
-    print(output_folderpath)
-    print(output_filepath)
+def save_dataframe(dataframe, output_filepath):
 
-    if check_existing_folder (output_folderpath):
-        os.makedirs(output_folderpath)
+    if check_existing_folder (Path(output_filepath).parent):
+        os.makedirs(output_filepath)
     
     if check_existing_file(output_filepath):
         dataframe.to_csv(output_filepath, index=False)
 
-def main(repo_path):
-    with open(repo_path / 'models/gbr_model.pkl', 'rb') as f:
+def main():
+    with open(data_training_config.model_filepath, 'rb') as f:
         modele = pickle.load(f)
 
     predictions = pd.DataFrame(modele.predict(X_test), X_test.index)
@@ -40,13 +48,11 @@ def main(repo_path):
             "mae" : mae
             }
     
-    metric_path = repo_path / "metrics/scores.json"
+    metric_path = Path(data_evaluate_config.metrics_filepath)
     metric_path.write_text(json.dumps(metrics))
 
-    output_folderpath = repo_path / "data/predict"
-    output_filepath = output_folderpath / "prediction.csv"
-    save_dataframe(predictions, output_folderpath, output_filepath)
+    output_filepath = data_evaluate_config.predictions_filepath
+    save_dataframe(predictions, output_filepath)
 
 if __name__ == "__main__":
-    repo_path = Path(__file__).parent.parent.parent
-    main(repo_path)
+    main()

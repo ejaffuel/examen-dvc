@@ -1,6 +1,6 @@
 import_raw_config:
   prog_filepath: src/data/import_raw_data.py
-  
+
   input_url: "https://datascientest-mlops.s3.eu-west-1.amazonaws.com/mlops_dvc_fr/raw.csv"
   output_filepath: "data/raw_data/raw.csv"
 
@@ -42,3 +42,6 @@ training_config:
 
 evaluate_config:
   prog_filepath: src/models/evaluate.py
+
+  predictions_filepath: "data/predict/prediction.csv"
+  metrics_filepath: "metrics/scores.json"
