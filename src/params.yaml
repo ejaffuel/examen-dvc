@@ -1,0 +1,28 @@
+split_config:
+  test_size: 0.3
+  input_filepath: "data/raw_data/raw.csv"
+
+  output_folderpath: "data/processed"
+
+  output_X_train_filename: "X_train.csv"
+  output_X_train_scaled_filename: "X_train_scaled.csv"
+
+  output_X_test_filename: "X_test.csv"
+  output_X_test_scaled_filename: "X_test_scaled.csv"
+
+  output_y_train_filename: "y_train.csv"
+  output_y_test_filename: "y_test.csv"
+
+grid_search_config:
+  output_filepath: "models/best_params.pkl"
+  n_estimators_range: 
+    - 100
+    - 500
+    - 1000
+  max_depth_range: 
+    - 3
+    - 5000
+    - 10000
+
+training_config:
+  output_filepath: "models/gbr_model.pkl"

@@ -1,11 +1,14 @@
 import pandas as pd
 import numpy as np
 from pathlib import Path
-import click
 import logging
 from sklearn.model_selection import train_test_split
 from check_structure import check_existing_file, check_existing_folder
+import sys
 import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../..')))
+from src.config_manager import ConfigurationManager
+
 
 input_filepath = "data/raw_data/raw.csv"
 output_filepath = "data/processed"
