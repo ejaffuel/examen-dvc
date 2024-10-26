@@ -22,6 +22,8 @@ normalize_config:
   prog_filepath: src/data/normalize.py 
 
 grid_search_config:
+  prog_filepath: src/models/grid_search.py
+
   output_filepath: "models/best_params.pkl"
   n_estimators_range: 
     - 100
@@ -33,4 +35,8 @@ grid_search_config:
     - 10000
 
 training_config:
+  prog_filepath: src/models/training.py
   output_filepath: "models/gbr_model.pkl"
+
+evaluate_config:
+  prog_filepath: src/models/evaluate.py

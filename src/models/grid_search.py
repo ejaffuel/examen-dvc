@@ -13,9 +13,9 @@ data_split_config = config_manager.get_data_split_config()
 data_grid_search_config = config_manager.get_data_grid_search_config()
 
 X_train = pd.read_csv(data_split_config.output_folderpath 
-                      + data_split_config.output_X_train_scaled_filename)
+                      + data_split_config.X_train_scaled_filename)
 y_train = pd.read_csv(data_split_config.output_folderpath 
-                      + data_split_config.output_y_train_filename)
+                      + data_split_config.y_train_filename)
 y_train = np.ravel(y_train)
 
 # from sklearn.ensemble import GradientBoostingRegressor
@@ -28,7 +28,7 @@ y_train = np.ravel(y_train)
 from sklearn.ensemble import RandomForestRegressor
 modele = RandomForestRegressor ()
 
-print ("Paramètre du modèle", modele.get_params().keys())
+#print ("Paramètre du modèle", modele.get_params().keys())
 
 params = {
     'n_estimators': data_grid_search_config.n_estimators_range,

@@ -22,3 +22,13 @@ stages:
     - ${split_config.output_folderpath}/${split_config.X_train_scaled_filename}
     - ${split_config.output_folderpath}/${split_config.X_test_scaled_filename}
     cmd: python ${normalize_config.prog_filepath}
+
+  gridSearch:
+    deps:
+    - ${grid_search_config.prog_filepath}
+    - params.yaml
+    - ${split_config.output_folderpath}/${split_config.X_train_scaled_filename}
+    - ${split_config.output_folderpath}/${split_config.y_train_filename}
+    outs:
+    - ${grid_search_config.output_filepath}
+    cmd: python ${grid_search_config.prog_filepath}
