@@ -1,4 +1,6 @@
 import_raw_config:
+  prog_filepath: src/data/import_raw_data.py
+  
   input_url: "https://datascientest-mlops.s3.eu-west-1.amazonaws.com/mlops_dvc_fr/raw.csv"
   output_filepath: "data/raw_data/raw.csv"
 
@@ -24,7 +26,7 @@ normalize_config:
 grid_search_config:
   prog_filepath: src/models/grid_search.py
 
-  output_filepath: "models/best_params.pkl"
+  best_params_filepath: "models/best_params.pkl"
   n_estimators_range: 
     - 100
     - 500
@@ -36,7 +38,7 @@ grid_search_config:
 
 training_config:
   prog_filepath: src/models/training.py
-  output_filepath: "models/gbr_model.pkl"
+  model_filepath: "models/gbr_model.pkl"
 
 evaluate_config:
   prog_filepath: src/models/evaluate.py

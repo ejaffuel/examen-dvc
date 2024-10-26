@@ -23,11 +23,11 @@ class Data_split_config:
 
 @dataclass(frozen=True)
 class Data_grid_search_config:
-    output_filepath : Path
+    best_params_filepath : Path
     n_estimators_range: list
     max_depth_range: list
 
 @dataclass(frozen=True)
 class Data_training_config:
-    output_filepath : Path
+    model_filepath : Path
 

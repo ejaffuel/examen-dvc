@@ -48,6 +48,6 @@ grid_modele = GridSearchCV(estimator = modele,
 grid_modele = grid_modele.fit(X_train, y_train)
 
 #--Save the best params to a file
-with open(data_grid_search_config.output_filepath, 'wb') as f:
+with open(data_grid_search_config.best_params_filepath, 'wb') as f:
     pickle.dump(grid_modele.best_params_, f)
 print("Grid search - best params saved successfully.")

@@ -3,20 +3,37 @@ import pandas as pd
 from sklearn import ensemble
 import pickle
 import numpy as np
+import sys
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../..')))
+from src.config_manager import ConfigurationManager
 
-X_train = pd.read_csv('data/processed/X_train_scaled.csv')
-y_train = pd.read_csv('data/processed/y_train.csv')
+config_manager = ConfigurationManager()
+
+data_split_config = config_manager.get_data_split_config()
+data_training_config = config_manager.get_data_training_config()
+data_grid_search_config = config_manager.get_data_grid_search_config()
+
+X_train = pd.read_csv(data_split_config.output_folderpath 
+                      + data_split_config.X_train_scaled_filename)
+y_train = pd.read_csv(data_split_config.output_folderpath 
+                      + data_split_config.y_train_filename)
 y_train = np.ravel(y_train)
+
+with open(data_grid_search_config.best_params_filepath, 'rb') as f:
+    best_params = pickle.load(f)
+
+from sklearn.ensemble import RandomForestRegressor
+modele = RandomForestRegressor (
+    max_depth =  best_params['max_depth'], 
+    n_estimators = best_params['n_estimators']
+    )
+
+# from sklearn.ensemble import GradientBoostingRegressor
+# modele = GradientBoostingRegressor (best_params)
 
 # from sklearn.linear_model import LinearRegression
 # modele = LinearRegression()
-
-from sklearn.ensemble import GradientBoostingRegressor
-modele = GradientBoostingRegressor (
-    n_estimators = 1000,
-    max_depth = 10000,
-    max_features = 15
-)
 
 # from sklearn.linear_model import ElasticNetCV
 # modele = ElasticNetCV(
@@ -33,7 +50,6 @@ modele = GradientBoostingRegressor (
 modele.fit (X_train, y_train)
 
 #--Save the trained model to a file
-model_filename = './models/gbr_model.pkl'
-with open(model_filename, 'wb') as f:
+with open(data_training_config.model_filepath, 'wb') as f:
     pickle.dump(modele, f)
 print("Model trained and saved successfully.")

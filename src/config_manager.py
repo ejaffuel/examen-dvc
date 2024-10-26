@@ -51,10 +51,10 @@ class ConfigurationManager:
     def get_data_grid_search_config(self) -> Data_grid_search_config:
           config = self.config.grid_search_config
 
-          create_directories([Path(config.output_filepath).parent])
+          create_directories([Path(config.best_params_filepath).parent])
 
           data_grid_search_config = Data_grid_search_config(
-                output_filepath = config.output_filepath,
+                best_params_filepath = config.best_params_filepath,
                 n_estimators_range = config.n_estimators_range,
                 max_depth_range = config.max_depth_range
           )
@@ -63,10 +63,9 @@ class ConfigurationManager:
     def get_data_training_config(self) -> Data_training_config:
           config = self.config.training_config
 
-          create_directories([Path(config.output_filepath).parent])
+          create_directories([Path(config.model_filepath).parent])
 
           data_training_config = Data_training_config(
-                n_estimators_range = config.n_estimators_range,
-                max_depth_range = config.max_depth_range
+                model_filepath = config.model_filepath
           )
           return data_training_config

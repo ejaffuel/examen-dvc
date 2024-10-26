@@ -1,5 +1,0 @@
-outs:
-- md5: 932b45d9cebd25a86338271d5f6db9f0
-  size: 27617358
-  hash: md5
-  path: gbr_model.pkl

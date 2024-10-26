@@ -9,8 +9,8 @@ stages:
       size: 333757
     - path: params.yaml
       hash: md5
-      md5: 9fffffcba25f3fc59ae50ebe71bf8eda
-      size: 926
+      md5: d157b82fd91f22d33d627f5b0516fa3d
+      size: 978
     - path: src/data/data_split.py
       hash: md5
       md5: b9bb3f87a8231f03d0393ed34cfee093
@@ -49,8 +49,8 @@ stages:
       size: 183322
     - path: params.yaml
       hash: md5
-      md5: 9fffffcba25f3fc59ae50ebe71bf8eda
-      size: 926
+      md5: d157b82fd91f22d33d627f5b0516fa3d
+      size: 978
     - path: src/data/normalize.py
       hash: md5
       md5: c974c85a9e71f18c8f6bdd9ec0da92f6
@@ -77,14 +77,42 @@ stages:
       size: 22710
     - path: params.yaml
       hash: md5
-      md5: 9fffffcba25f3fc59ae50ebe71bf8eda
-      size: 926
+      md5: d157b82fd91f22d33d627f5b0516fa3d
+      size: 978
     - path: src/models/grid_search.py
       hash: md5
-      md5: 717d8aaaa73182662e21cab2b37e1adb
-      size: 1680
+      md5: 403616f540322badd5e5f7b6f259ec9f
+      size: 1685
     outs:
     - path: models/best_params.pkl
       hash: md5
-      md5: 44e5d80b2865d3bf50638921a7aa1cda
+      md5: a1d37fb6f3a277b85980c27c4ab7d5c3
       size: 49
+  training:
+    cmd: python src/models/training.py
+    deps:
+    - path: data/processed//X_train_scaled.csv
+      hash: md5
+      md5: 41c0d8ca5d92b44b00b18db4d7d6db9d
+      size: 198675
+    - path: data/processed//y_train.csv
+      hash: md5
+      md5: 4f1097f0b9053f0a94904c047541877f
+      size: 22710
+    - path: models/best_params.pkl
+      hash: md5
+      md5: a1d37fb6f3a277b85980c27c4ab7d5c3
+      size: 49
+    - path: params.yaml
+      hash: md5
+      md5: d157b82fd91f22d33d627f5b0516fa3d
+      size: 978
+    - path: src/models/training.py
+      hash: md5
+      md5: 22fadd2a1e72a425d1ed5108cc8ae4ff
+      size: 2008
+    outs:
+    - path: models/gbr_model.pkl
+      hash: md5
+      md5: 02be65ad6a430c51f29ccfccd2a6139d
+      size: 113832876
