@@ -9,17 +9,17 @@ import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../..')))
 from src.config_manager import ConfigurationManager
 
+config_manager = ConfigurationManager()
 
-input_filepath = "data/raw_data/raw.csv"
-output_filepath = "data/processed"
+data_split_config = config_manager.get_data_split_config()
 
-def main(input_filepath, output_filepath):
+def main(input_filepath, output_folderpath):
     logger = logging.getLogger(__name__)
     logger.info('making final data set from raw data')
 
-    process_data(input_filepath)
+    process_data(input_filepath, output_folderpath)
 
-def process_data(input_filepath):
+def process_data(input_filepath, output_folderpath):
     # Import datasets
     df = import_dataset(input_filepath, sep=",")
 
@@ -30,10 +30,10 @@ def process_data(input_filepath):
     X_train, X_test, y_train, y_test = split_data(df)
 
     # Create folder if necessary
-    create_folder_if_necessary(output_filepath)
+    create_folder_if_necessary(output_folderpath)
 
     # Save dataframes to their respective output file paths
-    save_dataframes(X_train, X_test, y_train, y_test, output_filepath)
+    save_dataframes(X_train, X_test, y_train, y_test, output_folderpath)
 
 def import_dataset(file_path, **kwargs):
     return pd.read_csv(file_path, **kwargs)
@@ -52,10 +52,19 @@ def create_folder_if_necessary(output_folderpath):
 
 def save_dataframes(X_train, X_test, y_train, y_test, output_folderpath):
     # Save dataframes to their respective output file paths
-    for file, filename in zip([X_train, X_test, y_train, y_test], ['X_train', 'X_test', 'y_train', 'y_test']):
-        output_filepath = os.path.join(output_folderpath, f'{filename}.csv')
-        if check_existing_file(output_filepath):
-            file.to_csv(output_filepath, index=False)
+    for file, filename in zip([X_train, 
+                               X_test, 
+                               y_train, 
+                               y_test], 
+                              [data_split_config.output_X_train_filename, 
+                               data_split_config.output_X_test_filename,
+                               data_split_config.output_y_train_filename,
+                               data_split_config.output_y_test_filename]):
+        output_filepath = os.path.join(data_split_config.output_folderpath, 
+                                       filename 
+                                      )
+        #if check_existing_file(output_filepath):
+        file.to_csv(output_filepath, index=False)
 
 if __name__ == '__main__':
     log_fmt = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
@@ -64,4 +73,6 @@ if __name__ == '__main__':
     # not used in this stub but often useful for finding various files
     project_dir = Path(__file__).resolve().parents[2]
 
-    main(input_filepath, output_filepath)
+    input_filepath = data_split_config.input_filepath
+    output_folderpath = data_split_config.output_folderpath
+    main(input_filepath, output_folderpath)

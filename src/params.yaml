@@ -2,7 +2,7 @@ split_config:
   test_size: 0.3
   input_filepath: "data/raw_data/raw.csv"
 
-  output_folderpath: "data/processed"
+  output_folderpath: "data/processed/"
 
   output_X_train_filename: "X_train.csv"
   output_X_train_scaled_filename: "X_train_scaled.csv"
