@@ -3,6 +3,8 @@ import_raw_config:
   output_filepath: "data/raw_data/raw.csv"
 
 split_config:
+  prog_filepath: src/data/data_split.py
+
   test_size: 0.3
 
   output_folderpath: "data/processed/"

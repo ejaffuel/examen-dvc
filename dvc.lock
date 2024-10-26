@@ -7,6 +7,10 @@ stages:
       hash: md5
       checksum: '"617b56af2992376d5c3e91ad80823898"'
       size: 333757
+    - path: params.yaml
+      hash: md5
+      md5: f59b67691cb518ad69fa8fae53658278
+      size: 767
     - path: src/data/data_split.py
       hash: md5
       md5: 97e3d099e95f13d15c5a6d1adffd8313
@@ -15,24 +19,20 @@ stages:
       hash: md5
       md5: 7d2004dcb028c8819e62e606389684bd
       size: 1985
-    - path: src/params.yaml
-      hash: md5
-      md5: 984bc84d9235f558e4f18bb98a245d88
-      size: 726
     outs:
-    - path: data/processed/X_test.csv
+    - path: data/processed//X_test.csv
       hash: md5
       md5: d3be1be617366bc81a9254f075039b51
       size: 78770
-    - path: data/processed/X_train.csv
+    - path: data/processed//X_train.csv
       hash: md5
       md5: 38e9f56c92d20ee33257e3918c901e7e
       size: 183322
-    - path: data/processed/y_test.csv
+    - path: data/processed//y_test.csv
       hash: md5
       md5: e064ea83fe860a49b9e9cfab1e8ec5a7
       size: 9697
-    - path: data/processed/y_train.csv
+    - path: data/processed//y_train.csv
       hash: md5
       md5: 4f1097f0b9053f0a94904c047541877f
       size: 22710

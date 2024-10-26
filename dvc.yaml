@@ -1,13 +1,13 @@
 stages:
   split:
-    cmd: python src/data/data_split.py
+    cmd: python ${split_config.prog_filepath}
     deps:
     - https://datascientest-mlops.s3.eu-west-1.amazonaws.com/mlops_dvc_fr/raw.csv
     - src/data/import_raw_data.py
-    - src/data/data_split.py
-    - src/params.yaml
+    - ${split_config.prog_filepath}
+    - params.yaml
     outs:
-    - data/processed/X_train.csv
-    - data/processed/X_test.csv
-    - data/processed/y_train.csv
-    - data/processed/y_test.csv
+    - ${split_config.output_folderpath}/${split_config.output_X_train_filename}
+    - ${split_config.output_folderpath}/${split_config.output_X_test_filename}
+    - ${split_config.output_folderpath}/${split_config.output_y_train_filename}
+    - ${split_config.output_folderpath}/${split_config.output_y_test_filename}
