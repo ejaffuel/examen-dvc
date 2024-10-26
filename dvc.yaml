@@ -2,7 +2,7 @@ stages:
   split:
     cmd: python src/data/data_split.py
     deps:
-    - data/raw_data/raw.csv
+    - https://datascientest-mlops.s3.eu-west-1.amazonaws.com/mlops_dvc_fr/raw.csv
     - src/data/data_split.py
     - src/params.yaml
     outs:

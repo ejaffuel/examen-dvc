@@ -3,9 +3,9 @@ stages:
   split:
     cmd: python src/data/data_split.py
     deps:
-    - path: data/raw_data/raw.csv
+    - path: https://datascientest-mlops.s3.eu-west-1.amazonaws.com/mlops_dvc_fr/raw.csv
       hash: md5
-      md5: 617b56af2992376d5c3e91ad80823898
+      checksum: '"617b56af2992376d5c3e91ad80823898"'
       size: 333757
     - path: src/data/data_split.py
       hash: md5
