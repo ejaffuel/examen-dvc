@@ -1,7 +1,5 @@
 from sklearn import preprocessing
 import pandas as pd 
-from sklearn import ensemble
-import numpy as np
 from check_structure import check_existing_file
 
 X_train = pd.read_csv('data/processed/X_train.csv')

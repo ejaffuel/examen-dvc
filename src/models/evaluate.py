@@ -7,7 +7,6 @@ import sys
 import os
 from sklearn.metrics import root_mean_squared_error, mean_absolute_error
 
-
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from data.check_structure import check_existing_file, check_existing_folder
 
