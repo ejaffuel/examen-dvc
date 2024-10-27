@@ -11,3 +11,5 @@ click
 logging
 scikit-learn
 python-box
+dagshub
+mlflow

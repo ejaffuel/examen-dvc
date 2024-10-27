@@ -8,13 +8,20 @@ import os
 from sklearn.metrics import root_mean_squared_error, mean_absolute_error
 import sys
 import os
+
+import dagshub
+import mlflow
+dagshub.init(repo_owner='ejaffuel', repo_name='examen-dvc', mlflow=True)
+
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../..')))
 from src.data.check_structure import check_existing_file, check_existing_folder
 from src.config_manager import ConfigurationManager
+from src.common_utils import read_yaml
 
 config_manager = ConfigurationManager()
 
 data_split_config = config_manager.get_data_split_config()
+data_grid_search_config = config_manager.get_data_grid_search_config()
 data_training_config = config_manager.get_data_training_config()
 data_evaluate_config = config_manager.get_data_evaluate_config()
 
@@ -42,17 +49,32 @@ def main():
     score = modele.score(X_test, y_test)
     rmse = root_mean_squared_error(y_test, predictions)
     mae = mean_absolute_error(y_test, predictions)
+
+    with open(data_grid_search_config.best_params_filepath, 'rb') as f:
+        best_params = pickle.load(f)
+
+    from src.config import CONFIG_FILE_PATH
+    params_YAML = read_yaml(CONFIG_FILE_PATH)
+    with mlflow.start_run():
+        mlflow.log_params(params_YAML)
+        mlflow.sklearn.log_model(modele, artifact_path="model")
+        mlflow.sklearn.log_model(best_params, artifact_path="best params")
+        mlflow.log_metric("score", score)
+        mlflow.log_metric("rmse", rmse)
+        mlflow.log_metric("mae", mae)
+
     metrics = {
             "score" : score,
             "rmse" : rmse,
             "mae" : mae
             }
-    
+   
     metric_path = Path(data_evaluate_config.metrics_filepath)
     metric_path.write_text(json.dumps(metrics))
 
     output_filepath = data_evaluate_config.predictions_filepath
     save_dataframe(predictions, output_filepath)
+
 
 if __name__ == "__main__":
     main()
