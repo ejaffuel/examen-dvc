@@ -6,13 +6,22 @@
 ---
 ## Installation guide
 - Create and activate your virtual environment and install packages with:
-    - ```pip install -r requirements.txt```
+    ```sh
+    pip install -r requirements.txt
+    ```
 ---
 ## User guide
 - Launch pipeline with 
-    - ```dvc repro```
+    ```sh
+    dvc repro
+    ```
 - Pipeline parameters : ![DVC Pipeline Configuration YAML](./params.yaml)
+    - Tous les chemins et noms de fichiers sont parametrables
 - Pipeline definition : ![DVC Pipeline Definition YAML](./dvc.yaml)
+    - La pipeline s'appuie sur la configuration des paramètres 
+    - :warning: La pipeline n'est exactement celle de l'énoncé, voici les différences:
+        - Pour importer raw.csv "external file" avec URL: j'ai utilisé "import_raw_data.py" dans l'étape "Split"
+        - Toutes les scripts de la pipeline dépendent de "params.yaml"
 - Pipeline visualization : ![DVC Pipeline Graphical](docs/Examen_DVC_Pipeline.png)
 ---
 ## Tree of Folders and files (managed under **Git**)
