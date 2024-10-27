@@ -9,10 +9,6 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../..')
 from src.config_manager import ConfigurationManager
 from src.common_utils import read_yaml
 
-import dagshub
-import mlflow
-dagshub.init(repo_owner='ejaffuel', repo_name='examen-dvc', mlflow=True)
-
 config_manager = ConfigurationManager()
 
 data_split_config = config_manager.get_data_split_config()
@@ -57,11 +53,5 @@ modele.fit (X_train, y_train)
 #--Save the trained model to a file
 with open(data_training_config.model_filepath, 'wb') as f:
     pickle.dump(modele, f)
-
-from src.config import CONFIG_FILE_PATH
-params_YAML = read_yaml(CONFIG_FILE_PATH)
-with mlflow.start_run():
-  mlflow.log_params(params_YAML)
-  mlflow.sklearn.log_model(modele, artifact_path="model")
 
 print("Model trained and saved successfully.")
