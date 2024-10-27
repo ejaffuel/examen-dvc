@@ -16,7 +16,9 @@
     dvc repro
     ```
 - Pipeline parameters : ![DVC Pipeline Configuration YAML](./params.yaml)
-    - Tous les chemins et noms de fichiers sont parametrables
+    - Tous les chemins et noms de fichiers sont paramètrables pour toutes les étapes
+    - Pour l'étape "split": le parametre "test_size" a été défini (taux de la partie test)
+    - Pour l'étape "gridSearch" : les ranges des 2 hyperparametres sont paramétrables
 - Pipeline definition : ![DVC Pipeline Definition YAML](./dvc.yaml)
     - La pipeline s'appuie sur la configuration des paramètres 
     - :warning: La pipeline n'est exactement celle de l'énoncé, voici les différences:
