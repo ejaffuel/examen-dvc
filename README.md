@@ -1,5 +1,5 @@
 # Examen DVC and Dagshub
-- **Author**: Eddie JAFFUEL
+- **Author**: Eddie JAFFUEL (eddie.jaffuel@gmail.com)
 - **Delivery Date**: Branch "**Master**" / **1.0** / 27 oct 2024
 - **Github repository**: https://github.com/ejaffuel/examen-dvc
 - **DagsHub repository**: https://dagshub.com/ejaffuel/examen-dvc
