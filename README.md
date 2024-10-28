@@ -1,6 +1,6 @@
 # Examen DVC and Dagshub
-- **Author**: Eddie JAFFUEL (eddie.jaffuel@gmail.com)
-- **Delivery Date**: Branch "**Master**" / **1.0** / 27 oct 2024
+- **Author**: Eddie JAFFUEL (sep24_continu_mlops)
+- **Delivery**: Branch "**Master**" / 27 oct 2024
 - **Github repository**: https://github.com/ejaffuel/examen-dvc
 - **DagsHub repository**: https://dagshub.com/ejaffuel/examen-dvc
 ---
@@ -21,7 +21,7 @@
     - Pour l'étape "gridSearch" : les ranges des 2 hyperparametres sont paramétrables
 - Pipeline definition : ![DVC Pipeline Definition YAML](./dvc.yaml)
     - La pipeline s'appuie sur la configuration des paramètres 
-    - :warning: La pipeline n'est exactement celle de l'énoncé, voici les différences:
+    - :warning: La pipeline n'est pas exactement celle de l'énoncé, voici les différences:
         - Pour importer raw.csv "external file" avec URL: j'ai utilisé "import_raw_data.py" dans l'étape "Split"
         - Toutes les scripts de la pipeline dépendent de "params.yaml"
 - Pipeline visualization : ![DVC Pipeline Graphical](docs/Examen_DVC_Pipeline.png)
