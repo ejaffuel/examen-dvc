@@ -56,12 +56,18 @@ def main():
     from src.config import CONFIG_FILE_PATH
     params_YAML = read_yaml(CONFIG_FILE_PATH)
     with mlflow.start_run():
-        mlflow.log_params(params_YAML)
+        mlflow.log_param("test_size",
+                          params_YAML.split_config.test_size)
+        mlflow.log_param("max_depth_range",
+                           params_YAML.grid_search_config.max_depth_range)
+        mlflow.log_param("n_estimators_range",
+                           params_YAML.grid_search_config.n_estimators_range)
         mlflow.sklearn.log_model(modele, artifact_path="model")
         mlflow.sklearn.log_model(best_params, artifact_path="best params")
         mlflow.log_metric("score", score)
         mlflow.log_metric("rmse", rmse)
         mlflow.log_metric("mae", mae)
+        mlflow.log_artifact("data/processed")
 
     metrics = {
             "score" : score,

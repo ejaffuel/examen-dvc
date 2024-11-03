@@ -27,14 +27,8 @@ grid_search_config:
   prog_filepath: src/models/grid_search.py
 
   best_params_filepath: "models/best_params.pkl"
-  n_estimators_range: 
-    - 100
-    - 500
-    - 1000
-  max_depth_range: 
-    - 3
-    - 5000
-    - 10000
+  n_estimators_range: [100, 500, 1000]
+  max_depth_range: [3, 5000, 10000]
 
 training_config:
   prog_filepath: src/models/training.py
