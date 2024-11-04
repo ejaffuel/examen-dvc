@@ -11,7 +11,6 @@ import os
 
 import dagshub
 import mlflow
-dagshub.init(repo_owner='ejaffuel', repo_name='examen-dvc', mlflow=True)
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../..')))
 from src.data.check_structure import check_existing_file, check_existing_folder
@@ -53,6 +52,18 @@ def main():
     with open(data_grid_search_config.best_params_filepath, 'rb') as f:
         best_params = pickle.load(f)
 
+
+    mlflow.set_tracking_uri('https://dagshub.com/ejaffuel/examen-dvc.mlflow')
+    # mlflow.set_experiment("Experience")
+
+    dagshub.auth.add_app_token(os.environ['DAGSHUB_TOKEN'])
+
+    dagshub.init(
+        repo_owner = 'ejaffuel',
+        repo_name = 'examen-dvc',
+        mlflow = True
+    )
+
     from src.config import CONFIG_FILE_PATH
     params_YAML = read_yaml(CONFIG_FILE_PATH)
     with mlflow.start_run():
@@ -62,8 +73,9 @@ def main():
                            params_YAML.grid_search_config.max_depth_range)
         mlflow.log_param("n_estimators_range",
                            params_YAML.grid_search_config.n_estimators_range)
+        mlflow.log_params(best_params)
         mlflow.sklearn.log_model(modele, artifact_path="model")
-        mlflow.sklearn.log_model(best_params, artifact_path="best params")
+        mlflow.sklearn.log_model(best_params, artifact_path="best_params")
         mlflow.log_metric("score", score)
         mlflow.log_metric("rmse", rmse)
         mlflow.log_metric("mae", mae)

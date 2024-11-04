@@ -49,5 +49,6 @@ grid_modele = grid_modele.fit(X_train, y_train)
 
 #--Save the best params to a file
 with open(data_grid_search_config.best_params_filepath, 'wb') as f:
+    print ("Best hyperparameters:", grid_modele.best_params_)
     pickle.dump(grid_modele.best_params_, f)
 print("Grid search - best params saved successfully.")
